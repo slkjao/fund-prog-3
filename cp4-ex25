@@ -1,0 +1,29 @@
+public class Programa {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Horas extras:");
+        int horaExtra = sc.nextInt();
+        System.out.println("Horas faltas:");
+        int horaFalta = sc.nextInt();
+        calcHoras(horaExtra, horaFalta);
+    }
+
+    public static void calcHoras(int horaExtra, int horaFalta){
+        int gratificacao = (horaExtra * 60) - (2 * (horaFalta * 60) / 3);
+        int bonificacao;
+
+        if(gratificacao < 600){
+            bonificacao = 100;
+        } else if (gratificacao >= 2400){
+            bonificacao = 500;
+        } else if (gratificacao >= 1800){
+            bonificacao = 400;
+        } else if (gratificacao >= 1200){
+            bonificacao =   300;
+        } else {
+            bonificacao = 200;
+        }
+
+        System.out.println("Minutos a mais: "+gratificacao+" | Bonificacao: "+bonificacao);
+    }
+}
