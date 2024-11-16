@@ -1,0 +1,69 @@
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Locale;
+import java.util.Scanner;
+
+public class Programa {
+    public static void main(String[] args) {
+        Locale.setDefault(new Locale("en", "US"));
+        Scanner sc = new Scanner(System.in);
+        int categoria;
+        char situacao;
+        BigDecimal preco;
+
+        do{
+            System.out.println("Preco");
+            preco = sc.nextBigDecimal();
+            System.out.println("Categoria:");
+            categoria = sc.nextInt();
+            System.out.println("Situacao");
+            situacao = sc.next().charAt(0);
+        } while(situacao != 'N' && situacao != 'R' || categoria < 1 || categoria > 3);
+
+        processor(preco, categoria, situacao);
+    }
+
+    public static void processor(BigDecimal preco, int categoria, char situacao){
+        double taxaAumento = 0;
+        double taxaImposto = 0.08;
+        if(preco.compareTo(BigDecimal.valueOf(25)) <= 0){
+            switch (categoria){
+                case 1:
+                    taxaAumento = 0.05;
+                    break;
+                case 2:
+                    taxaAumento = 0.08;
+                    break;
+                case 3:
+                    taxaAumento = 0.1;
+                    break;
+            }
+        } else {
+            switch (categoria){
+                case 1:
+                    taxaAumento = 0.12;
+                    break;
+                case 2:
+                    taxaAumento = 0.15;
+                    break;
+                case 3:
+                    taxaAumento = 0.18;
+                    break;
+            }
+        }
+
+        if(categoria == 2 || situacao == 'R'){
+            taxaImposto = 0.05;
+        }
+
+        BigDecimal valorImposto = preco.multiply(BigDecimal.valueOf(taxaImposto));
+        BigDecimal valorAumento = preco.multiply(BigDecimal.valueOf(taxaAumento));
+        BigDecimal precoAtual =  preco.add(valorImposto).add(valorAumento).setScale(2, RoundingMode.DOWN);
+
+        System.out.println("Preco antigo: "+preco.setScale(2, RoundingMode.DOWN)+" | aumento: "+valorAumento.setScale(2, RoundingMode.DOWN)+
+                " | imposto: "+valorImposto.setScale(2, RoundingMode.DOWN)+ " | preco atual: "+precoAtual.setScale(2, RoundingMode.DOWN));
+
+    }
+}
+
