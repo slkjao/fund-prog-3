@@ -1,0 +1,30 @@
+import java.util.Scanner;
+
+public class Programa {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int idade, risco = 0;
+        double peso, sobrepeso;
+
+        System.out.println("idade: ");
+        idade = sc.nextInt();
+        System.out.println("peso: ");
+        peso = sc.nextDouble();
+
+        if(idade < 20){
+            risco = 9;
+        } else if (idade < 50){
+            risco = 6;
+        } else {
+            risco = 3;
+        }
+        sobrepeso = peso - 60;
+        if (sobrepeso > 30){
+            risco = risco - 2;
+        } else if (sobrepeso > 0 && sobrepeso <= 30){
+            risco--;
+        }
+        System.out.println("Grupo de risco: "+risco);
+
+    }
+}
