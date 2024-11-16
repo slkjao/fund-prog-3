@@ -1,0 +1,45 @@
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Scanner;
+
+public class Programa {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int cod, quant;
+        System.out.println("Codigo:");
+        cod = sc.nextInt();
+        System.out.println("Quantidade:");
+        quant = sc.nextInt();
+        processor(cod, quant);
+    }
+
+    public static void processor(int cod, int quant){
+        BigDecimal precoUnitario = new BigDecimal(0);
+        double desconto =0;
+        if(cod < 1 || cod > 40){
+            System.out.println("Codigo invalido!");
+        } else if(cod <= 10){
+            precoUnitario = new BigDecimal(10);
+        } else if(cod <= 20){
+            precoUnitario = new BigDecimal(15);
+        } else if(cod <= 30){
+            precoUnitario = new BigDecimal(20);
+        } else {
+            precoUnitario = new BigDecimal(30);
+        }
+        BigDecimal precoTotal = precoUnitario.multiply(new BigDecimal(quant));
+
+        if(precoTotal.compareTo(new BigDecimal(250)) < 1) {
+            desconto = 0.05;
+        } else if(precoTotal.compareTo(new BigDecimal(500)) < 1){
+            desconto = 0.1;
+        } else {
+            desconto = 0.15;
+        }
+
+        System.out.println("NOTA\nValor unitario: "+precoUnitario.setScale(2, RoundingMode.DOWN)+
+                "\nValor total: "+precoTotal.setScale(2, RoundingMode.DOWN)+
+                "\nTaxa de Desconto: "+desconto*100 + "%"+
+                "\nValor final: "+ precoTotal.subtract(precoTotal.multiply(new BigDecimal(desconto))).setScale(2, RoundingMode.DOWN));
+    }
+}
