@@ -1,0 +1,47 @@
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Scanner;
+
+public class Programa {
+    public static void main(String[] args) {
+       Scanner sc = new Scanner(System.in);
+       int tipo = 0, meses = 0;
+       BigDecimal valor;
+
+       do{
+           System.out.println("Tipo: \n1 - Poupanca\n2 - Poupanca Plus\n3 - Fundo de renda fixa\n0 - Sair");
+           tipo = sc.nextInt();
+           if (tipo > 0 && tipo <= 3){
+               System.out.println("Valor a ser investido:");
+               valor = new BigDecimal(sc.nextDouble());
+               System.out.println("Tempo de investimento (meses)");
+               meses = sc.nextInt();
+               processor(valor,meses, tipo);
+           }
+
+       } while (tipo != 0);
+
+    }
+    public static void processor(BigDecimal valor,int meses, int tipo){
+       double juros = 0;
+       BigDecimal rendimento;
+       switch (tipo){
+           case 1: juros = 0.015;
+           break;
+           case 2: juros = 0.02;
+           break;
+           case 3: juros = 0.04;
+           break;
+       }
+       System.out.println("Taxa de rendimento mensal: "+ (juros * 100)+"%\n");
+       for(int i = 1; i <= meses; i++){
+           System.out.println("MES "+i+":");
+           System.out.println("Valor inicial: R$"+ valor.setScale(2, RoundingMode.DOWN));
+           rendimento = valor.multiply(new BigDecimal(juros));
+           valor = valor.add(rendimento);
+           System.out.println("Valor rendido: R$"+ rendimento.setScale(2, RoundingMode.DOWN));
+           System.out.println("Valor total: R$"+ valor.setScale(2, RoundingMode.DOWN));
+        }
+
+    }
+}
