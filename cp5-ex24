@@ -1,0 +1,30 @@
+import java.util.Scanner;
+
+public class Programa {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int input = 0, maior = 0, menor = 0, counter = 1;
+        do {
+            System.out.println("Input "+counter+": ");
+            input = sc.nextInt();
+            if(input < 0){
+                System.out.println("Input invalido");
+            } else if (input == 0){
+                System.out.println("BREAKLOOP");
+            } else {
+                if (input > maior){
+                    maior = input;
+                }
+                if (menor == 0){
+                    menor = input;
+                } else if (menor > input && input > 0){
+                    menor = input;
+                }
+                counter++;
+            }
+        } while (input != 0);
+
+        System.out.println("maior: "+maior);
+        System.out.println("menor: "+menor);
+    }
+}
