@@ -1,0 +1,30 @@
+import java.util.Scanner;
+
+public class Programa {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int idade = 0, altura = 0, counter = 0;
+        double mediaidade = 0, mediaAltura = 0;
+
+        do {
+            System.out.println("Pessoa #"+(counter+1)+":");
+            System.out.println("Idade:");
+            idade = sc.nextInt();
+            if (idade != 0) {
+                System.out.println("Altura (em cm):");
+                altura = sc.nextInt();
+            }
+
+            if(idade > 0 && idade < 120 && altura > 0 && altura < 220){
+                mediaidade += idade;
+                mediaAltura += altura;
+                counter++;
+            } else if (idade != 0){
+                System.out.println("Dados Invalidos!");
+            }
+        } while (idade != 0);
+        System.out.println("media idade: "+ mediaidade/counter);
+        System.out.println("media altura: "+mediaAltura/counter);
+        System.out.println("total pessoas: "+counter);
+    }
+}
