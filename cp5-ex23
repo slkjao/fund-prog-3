@@ -1,0 +1,74 @@
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Locale;
+import java.util.Scanner;
+
+public class Programa {
+    public static void main(String[] args) {
+       Locale.setDefault(new Locale("en", "US"));
+       Scanner sc = new Scanner(System.in);
+       int input = 0;
+
+       do {
+           System.out.println("\nMenu de Opções:");
+           System.out.println("1 - Novo salario");
+           System.out.println("2 - Ferias");
+           System.out.println("3 - Decimo terceiro");
+           System.out.println("4 - Sair");
+
+           input = sc.nextInt();
+
+           switch (input){
+               case 1: novoSalario();
+               break;
+               case 2: ferias();
+               break;
+               case 3: decimoTerceiro();
+               break;
+           }
+       } while (input != 4);
+    }
+
+    public static void novoSalario(){
+        BigDecimal salario = inputSalario();
+        double taxa = 0;
+        if(salario.compareTo(new BigDecimal(210)) < 0){
+            taxa = 0.15;
+        } else if(salario.compareTo(new BigDecimal(600)) > 0){
+            taxa = 0.05;
+        } else {
+           taxa = 0.1;
+        }
+        BigDecimal aumento = salario.multiply(new BigDecimal(taxa));
+        System.out.println("Taxa de aumento: R$" + aumento.setScale(2, RoundingMode.DOWN));
+        System.out.println("Novo salario: R$ " + salario.add(aumento).setScale(2, RoundingMode.DOWN));
+    }
+
+    public static void ferias(){
+        BigDecimal salario = inputSalario();
+        BigDecimal bonus = salario.multiply(new BigDecimal(.33));
+        System.out.println("Bonus: R$"+bonus.setScale(2, RoundingMode.DOWN));
+        System.out.println("Valor das ferias: R$"+salario.add(bonus).setScale(2, RoundingMode.DOWN));
+    }
+
+    public static void decimoTerceiro(){
+        Scanner sc = new Scanner(System.in);
+        BigDecimal salario = inputSalario();
+        int mesesTrabalhados = 0;
+
+        do {
+            System.out.println("Meses trabalhados:");
+            mesesTrabalhados = sc.nextInt();
+            if (mesesTrabalhados > 12 || mesesTrabalhados < 0) System.out.println("Input inválido!");
+        } while (mesesTrabalhados < 0 || mesesTrabalhados > 12);
+
+        System.out.printf("Salario 13o: %.2f\n",salario.doubleValue() * mesesTrabalhados / 12);
+    }
+
+    public static BigDecimal inputSalario(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Salario atual: ");
+        BigDecimal salario = new BigDecimal(sc.nextDouble());
+        return salario;
+    }
+}
