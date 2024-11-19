@@ -1,0 +1,36 @@
+import java.util.Random;
+
+public class Programa {
+    public static void main(String[] args) {
+        Random ran = new Random();
+        int[] arr = new int[15];
+
+        for (int i = 0; i < arr.length; i++){
+            arr[i] = ran.nextInt(100) + 1;
+            System.out.print(arr[i] + " - ");
+        }
+        System.out.println("\nNUMEROS PRIMOS:");
+        for (int i = 0; i < arr.length; i++){
+            System.out.println("Numero "+arr[i]);
+            processor(arr[i]);
+            System.out.println("------------------");
+        }
+    }
+
+    public static int processor(int num){
+        int counter = 0;
+        for (int i = 1; i <= num; i++){
+            if(num % i == 0){
+                counter++;
+                System.out.println("Divisor "+counter+": "+i);
+            }
+        }
+        System.out.println("total de divisores: "+counter);
+        if(counter == 2){
+            System.out.println(num + " É NUMERO PRIMO");
+        } else {
+            System.out.println(num + " NAO É NUMERO PRIMO");
+        }
+        return counter;
+    }
+}
