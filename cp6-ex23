@@ -1,0 +1,33 @@
+import java.util.Random;
+
+public class Programa {
+    public static void main(String[] args) {
+       Random r = new Random();
+       int arr1[] = new int[5];
+       int arr2[] = new int[5];
+       int acumulador = 0, resultado = 0;
+
+       for (int i = 0; i < arr1.length; i++){
+           arr1[i] = r.nextInt(50) + 1;
+           arr2[i] = r.nextInt(50) + 1;
+       }
+
+       System.out.print("arr1: ");
+       for (int i = 0; i < 5; i++){
+           System.out.print(arr1[i]+ " ");
+       }
+       System.out.print("\narr2: ");
+       for (int i = 0; i < 5; i++){
+           System.out.print(arr2[i]+ " ");
+       }
+
+       System.out.print("\nsubtracoes: \n");
+       for (int i = 0; i < 5; i++){
+           resultado = arr1[i] - arr2[4-i];
+           System.out.println(arr1[i] + " - "+ arr2[4 - i] +" : "+ resultado);
+           acumulador += resultado;
+       }
+        System.out.println("acumulo: "+ acumulador);
+
+    }
+}
