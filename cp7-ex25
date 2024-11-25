@@ -1,0 +1,103 @@
+import java.util.Locale;
+import java.util.Random;
+
+public class Programa {
+    public static double[] preencherPreco() {
+        Random r = new Random();
+        double[] preco = new double[10];
+        System.out.println("Preco dos produtos");
+        for (int i = 0; i < preco.length; i++){
+            preco[i] = r.nextDouble(100);
+            System.out.printf("[%.2f] ",preco[i]);
+        }
+        System.out.println();
+        return preco;
+    }
+    public static int[][] preencherArmazem() {
+        Random r = new Random();
+        int[][] armazem = new int[5][10];
+        System.out.print("Armazem preenchido:");
+        for (int i = 0; i < armazem.length; i++){
+            System.out.printf("\nArmazem %d", (i +1));
+            for (int j = 0; j < armazem[1].length; j++){
+                armazem[i][j] = r.nextInt(98) + 1;
+                if(armazem[i][j] < 10) {
+                    System.out.printf("[0%d] ", armazem[i][j]);
+                } else {
+                    System.out.printf("[%d] ", armazem[i][j]);
+                }
+            }
+        }
+        System.out.println();
+        return armazem;
+    }
+    public static void quantidadeProdutoEmCadaArmazem(int[][] armazem) {
+        int totalProdutosCadaArmazem;
+        for (int i = 0; i < armazem.length; i++){
+            totalProdutosCadaArmazem = 0;
+            for (int k = 0; k < armazem[1].length; k++){
+                totalProdutosCadaArmazem += armazem[i][k];
+            }
+            System.out.printf("\nTotal de produtos no armazem #%d: %d", (i +1), totalProdutosCadaArmazem);
+        }
+        System.out.println();
+    }
+
+    public static void quantidadeProdutosEmTodosArmazem(int[][] armazem){
+        int[] totalProdutosTodosArmazem = new int[10];
+        for (int i = 0; i < armazem.length; i++){
+            for (int k = 0; k < armazem[1].length; k++){
+                totalProdutosTodosArmazem[k] += armazem[i][k];
+            }
+        }
+        for (int i = 0; i < armazem[1].length; i++){
+            System.out.printf("\nTotal de itens do produto [%d] em todos armazens: %d", (i+1),totalProdutosTodosArmazem[i]);
+        }
+        System.out.println();
+    }
+
+    public static void precoProdutoMaiorEstoqueNoArmazem(int[][] armazem, double[] precoDosProdutos){
+        int indexItemMaiorEstoque = 0, indexItemMenorEstoque = 0, maiorEstoque = 0, menorEstoque = 0;
+        for (int i = 0; i < armazem.length; i++){
+            for (int k = 0; k < armazem[1].length; k++){
+                if (maiorEstoque == 0 || armazem[i][k] > maiorEstoque){
+                    maiorEstoque = armazem[i][k];
+                    indexItemMaiorEstoque = k;
+                }
+                if(menorEstoque == 0 || armazem[i][k] < menorEstoque){
+                    menorEstoque = armazem[i][k];
+                    indexItemMenorEstoque = k;
+                }
+            }
+            System.out.printf("\nMaior estoque do armazém #%d: [%d] | Valor do item: [%.2f]", (i+1), maiorEstoque, precoDosProdutos[indexItemMaiorEstoque]);
+            System.out.printf("\nMenor estoque do armazém #%d: [%d] | Valor do item: [%.2f]\n", (i+1), menorEstoque, precoDosProdutos[indexItemMenorEstoque]);
+            maiorEstoque = 0;
+            menorEstoque = 0;
+        }
+        System.out.println();
+    }
+
+    public static void precoTotal(int[][] armazem, double[] preco){
+        double precoTotalDoArmazem = 0, precoItemAtual = 0;
+        for (int i = 0; i < armazem.length; i++){
+            for (int k = 0; k < armazem[1].length; k++){
+                precoItemAtual = armazem[i][k] * preco[k];
+                System.out.printf("\nValor total do produto %d no armazem %d: %.2f", (k+1),(i+1), precoItemAtual);
+                precoTotalDoArmazem += precoItemAtual;
+            }
+            System.out.printf("\nValor total no armazem #%d: %.2f\n", (i+1),precoTotalDoArmazem);
+            precoTotalDoArmazem = 0;
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        Locale.setDefault(new Locale("en", "US"));
+        double[] precoDosProdutos = preencherPreco();
+        int[][] armazem = preencherArmazem();
+        quantidadeProdutoEmCadaArmazem(armazem);
+        quantidadeProdutosEmTodosArmazem(armazem);
+        precoProdutoMaiorEstoqueNoArmazem(armazem, precoDosProdutos);
+        precoTotal(armazem, precoDosProdutos);
+    }
+}
