@@ -1,0 +1,28 @@
+import java.util.Random;
+
+public class Programa {
+    public static void main(String[] args) {
+        Random r = new Random();
+        int[][] mat = new int[3][4];
+        int qntPares = 0, somaImpares = 0, counter = 0;
+        double mediaElementos = 0;
+        for (int i = 0; i < mat.length; i++){
+            for (int k =  0; k < mat[1].length; k++){
+                mat[i][k] = r.nextInt(50)+ 10;
+                System.out.printf("[%d]", mat[i][k]);
+                if(mat[i][k] % 2 == 0){
+                    qntPares++;
+                } else {
+                    somaImpares += mat[i][k];
+                }
+                mediaElementos += mat[i][k];
+                counter++;
+            }
+            System.out.println("");
+        }
+        System.out.printf("\nQuantidade de elementos pares: %d", qntPares);
+        System.out.printf("\nSoma dos elementos impares: %d", somaImpares);
+        System.out.printf("\nMedia dos elementos %.2f", mediaElementos / counter);
+    }
+}
+
