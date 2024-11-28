@@ -1,0 +1,67 @@
+import java.util.Random;
+
+public class Programa {
+
+    public static int[] preencherCodigoAlunos(int[] codigoAlunos){
+        Random r = new Random();
+        int codigo = 0;
+        boolean codigoUnico;
+        for (int i = 0; i < codigoAlunos.length; i++){
+            do{
+                codigo = r.nextInt(20)+1;
+                codigoUnico = true;
+                for (int j = 0; j < codigoAlunos.length; j++){
+                    if (codigoAlunos[j] == codigo) codigoUnico = false;
+                }
+            }while (codigoUnico == false);
+            codigoAlunos[i] = codigo;
+            System.out.printf("aluno [%d] | codigo [%d]\n",(i+1), codigoAlunos[i]);
+        }
+        return codigoAlunos;
+    }
+
+    public static double[][] preencherBoletim(double[][] boletimAlunos){
+        Random r = new Random();
+        double nota;
+        System.out.println("\nBOLETIM");
+        for (int i = 0; i < boletimAlunos.length; i++){
+            System.out.printf("%d° SEMESTRE:", (i + 1));
+            for (int j = 0; j < boletimAlunos[1].length; j++){
+                nota = r.nextDouble(8) + 2;
+                boletimAlunos[i][j] = nota;
+                System.out.printf("[%.1f] ", boletimAlunos[i][j]);
+            }
+            System.out.println();
+        }
+        return boletimAlunos;
+    }
+
+    public static void aprovacao(double[][] boletimAlunos, int[] codigoAlunos){
+        double[] mediaALunos = new double[codigoAlunos.length];
+        for(int i = 0; i < boletimAlunos.length; i++){
+            for (int j = 0; j < boletimAlunos[1].length; j++){
+                mediaALunos[j] += boletimAlunos[i][j];
+            }
+        }
+        System.out.print("\nMEDIAS ANUAIS:\n");
+        for (int i = 0; i < codigoAlunos.length; i++){
+            mediaALunos[i] = mediaALunos[i] / boletimAlunos.length;
+            System.out.printf("[%.2f] ", mediaALunos[i]);
+        }
+        System.out.print("\n\nALUNOS REPROVADOS:[Codigo do Aluno][Media Anual]\n");
+        for (int i = 0; i < mediaALunos.length; i++){
+            if(mediaALunos[i] < 6){
+                System.out.printf("[%d][%.1f] | ", codigoAlunos[i], mediaALunos[i]);
+            }
+        }
+    }
+
+
+    public static void main(String[] args) {
+        int[] codigoAlunos = new int[10];
+        double[][] boletimAlunos = new double[4][10];
+        preencherCodigoAlunos(codigoAlunos);
+        preencherBoletim(boletimAlunos);
+        aprovacao(boletimAlunos, codigoAlunos);
+    }
+}
